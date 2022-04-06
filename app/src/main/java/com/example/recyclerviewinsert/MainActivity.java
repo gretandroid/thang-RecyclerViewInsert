@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.recyclerviewinsert.controller.DataModel;
 import com.example.recyclerviewinsert.controller.PersonDao;
@@ -63,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
     public void onClickAddButton(View view) {
         String surname = surnameText.getText().toString();
         String name = nameText.getText().toString();
-        model.addPerson(new Person(surname, name));
+        Person person = new Person(surname, name);
+        person.setId(PersonDao.generateId());
+        model.addPerson(person);
+
+        // clear UI
+        surnameText.setText("");
+        nameText.setText("");
+
+        Toast.makeText(this, model.getLastPerson() + " was added", Toast.LENGTH_LONG).show();
     }
 }

@@ -1,6 +1,9 @@
 package com.example.recyclerviewinsert.controller;
 
 public class PersonDao {
+
+    private static int incrementalId = 0;
+
     static PersonDao instance;
     DataModel model;
 
@@ -20,6 +23,10 @@ public class PersonDao {
         }
 
         return instance;
+    }
+
+    public static int generateId() {
+        return ++incrementalId;
     }
 
 

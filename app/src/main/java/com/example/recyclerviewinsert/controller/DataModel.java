@@ -23,6 +23,10 @@ public class DataModel extends ViewModel {
         persons.forEach(this::addPerson);
     }
 
+    public Person getLastPerson() {
+        return mPersons.getValue().get(getNumberPerson() -1);
+    }
+
     public Person getPerson(int position) {
         if (mPersons == null) {
            return null;
