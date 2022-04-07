@@ -16,6 +16,7 @@ import com.example.recyclerviewinsert.model.Person;
 import com.example.recyclerviewinsert.recyclerview.PersonAdapter;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         model = new ViewModelProvider(this).get(DataModel.class);
 
-        // init Dao with model
-        PersonDao.useWithModel(model);
-
         // init fake data for model
 //        model.addPerson(Arrays.asList(
 //                new Person("PHAM", "Thang"),
@@ -47,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
         surnameText = findViewById(R.id.surnameText);
         nameText = findViewById(R.id.nameText);
 
+        // init recyclerView
         personRecyclerView = findViewById(R.id.personRecyclerView);
         personRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        PersonAdapter adapter = new PersonAdapter(model);
+        PersonAdapter adapter = new PersonAdapter(Collections.unmodifiableList((model.getPersons().getValue())));
         personRecyclerView.setAdapter(adapter);
 
 
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         String surname = surnameText.getText().toString();
         String name = nameText.getText().toString();
         Person person = new Person(surname, name);
-        person.setId(PersonDao.generateId());
         model.addPerson(person);
 
         // clear UI

@@ -9,14 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recyclerviewinsert.R;
-import com.example.recyclerviewinsert.controller.DataModel;
+import com.example.recyclerviewinsert.model.Person;
+
+import java.util.List;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonViewHolder> {
 
-    DataModel model;
+    List<Person> persons;
 
-    public PersonAdapter(DataModel model) {
-        this.model = model;
+    public PersonAdapter(List<Person> model) {
+        this.persons = model;
     }
 
     @NonNull
@@ -31,13 +33,13 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
 
     @Override
     public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
-        holder.getSurnameTextView().setText(model.getPerson(position).getSurname());
-        holder.getNameTextView().setText(model.getPerson(position).getName());
+        holder.getSurnameTextView().setText(persons.get(position).getSurname());
+        holder.getNameTextView().setText(persons.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return model.getNumberPerson();
+        return persons.size();
     }
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder {

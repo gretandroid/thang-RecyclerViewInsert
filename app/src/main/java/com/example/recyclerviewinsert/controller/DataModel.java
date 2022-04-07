@@ -10,12 +10,21 @@ import java.util.List;
 
 public class DataModel extends ViewModel {
     private MutableLiveData<List<Person>> mPersons;
+    PersonDao store;
+
+    public DataModel() {
+        // init Dao with model
+        PersonDao.useWithModel(this);
+        store = PersonDao.getInstance();
+    }
 
     public void addPerson(Person person) {
         if (mPersons == null) {
             mPersons = new MutableLiveData<>(new ArrayList<>());
         }
         mPersons.getValue().add(person);
+        store.save(person);
+
         mPersons.setValue(mPersons.getValue());
     }
 
