@@ -52,6 +52,7 @@ public class DataModel extends ViewModel {
     }
 
     public int getNumberPerson() {
+        mPersons.notify();
         return mPersons.getValue().size();
     }
 }
